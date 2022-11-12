@@ -1,7 +1,7 @@
 extends Node2D
 class_name Deck
 
-onready var card_holder = $Cards
+onready var card_holder: Node2D = $Cards
 
 # preload
 var card_scene: PackedScene = preload("res://Card/Card.tscn")

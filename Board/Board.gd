@@ -16,6 +16,8 @@ onready var tableau7 = $MarginContainer/CenterContainer/Tableau7
 onready var tableaus = [tableau1, tableau2, tableau3, tableau4, tableau5]
 onready var overflow_tableaus = [tableau6, tableau7]
 
+onready var waste_pile = $MarginContainer/CenterContainer/WastePile
+
 var card_offset: int = 50
 var tableau_count: int = 5
 var overflow_tableau_count: int = 2
@@ -45,6 +47,7 @@ func deal() -> void:
 		for i in range(0, cards_per_tableau):
 			for j in range(0, tableau_count):
 				var selected_card = deck.get_top_card()
+				selected_card.card_type = "tableau"
 				deck_cards.remove_child(selected_card)
 				var k = tableaus[j].get_card_count()
 				duration += .5
@@ -53,6 +56,7 @@ func deal() -> void:
 		for i in range(0, cards_per_tableau):
 			for j in range(0, tableau_count):
 				var selected_card = deck.get_top_card()
+				selected_card.card_type = "tableau"
 				deck_cards.remove_child(selected_card)
 				var k = tableaus[j].get_card_count()
 				duration += .5
@@ -61,6 +65,7 @@ func deal() -> void:
 		for i in range(0, cards_per_tableau):
 			for j in range(0, overflow_tableau_count):
 				var selected_card = deck.get_top_card()
+				selected_card.card_type = "tableau"
 				deck_cards.remove_child(selected_card)
 				duration += .5
 				overflow_tableaus[j].add_card_to_tableau(selected_card, i * card_offset, duration * .35)

@@ -28,12 +28,18 @@ _global_script_classes=[ {
 "class": "Tableau",
 "language": "GDScript",
 "path": "res://Tableau/Tableau.gd"
+}, {
+"base": "Node2D",
+"class": "WastePile",
+"language": "GDScript",
+"path": "res://Board/WastePile.gd"
 } ]
 _global_script_class_icons={
 "Board": "",
 "Card": "",
 "Deck": "",
-"Tableau": ""
+"Tableau": "",
+"WastePile": ""
 }
 
 [application]
@@ -41,6 +47,10 @@ _global_script_class_icons={
 config/name="Lucky 13"
 run/main_scene="res://Board/Board.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+BoardManager="*res://Managers/BoardManager.gd"
 
 [display]
 

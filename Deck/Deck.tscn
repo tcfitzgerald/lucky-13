@@ -16,6 +16,7 @@ centered = false
 [node name="CardTexture" type="TextureButton" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
+mouse_default_cursor_shape = 2
 shortcut_in_tooltip = false
 texture_normal = ExtResource( 1 )
 texture_pressed = ExtResource( 1 )

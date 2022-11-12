@@ -15,13 +15,25 @@ _global_script_classes=[ {
 "path": "res://Board/Board.gd"
 }, {
 "base": "Node2D",
+"class": "Card",
+"language": "GDScript",
+"path": "res://Card/Card.gd"
+}, {
+"base": "Node2D",
 "class": "Deck",
 "language": "GDScript",
 "path": "res://Deck/Deck.gd"
+}, {
+"base": "Node2D",
+"class": "Tableau",
+"language": "GDScript",
+"path": "res://Tableau/Tableau.gd"
 } ]
 _global_script_class_icons={
 "Board": "",
-"Deck": ""
+"Card": "",
+"Deck": "",
+"Tableau": ""
 }
 
 [application]

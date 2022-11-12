@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Board/Board.gd" type="Script" id=1]
 [ext_resource path="res://Deck/Deck.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Tableau/Tableau.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Board/WastePile.tscn" type="PackedScene" id=4]
 
 [node name="Board" type="Control"]
 anchor_right = 1.0
@@ -17,10 +19,28 @@ margin_right = 1280.0
 margin_bottom = 720.0
 
 [node name="Deck" parent="MarginContainer/CenterContainer" instance=ExtResource( 2 )]
-position = Vector2( 24, 160 )
+position = Vector2( -121, 160 )
+
+[node name="Tableau1" parent="MarginContainer/CenterContainer" instance=ExtResource( 3 )]
+position = Vector2( 198, 160 )
+
+[node name="Tableau2" parent="MarginContainer/CenterContainer" instance=ExtResource( 3 )]
+position = Vector2( 378, 160 )
+
+[node name="Tableau3" parent="MarginContainer/CenterContainer" instance=ExtResource( 3 )]
+position = Vector2( 558, 160 )
+
+[node name="Tableau4" parent="MarginContainer/CenterContainer" instance=ExtResource( 3 )]
+position = Vector2( 738, 160 )
+
+[node name="Tableau5" parent="MarginContainer/CenterContainer" instance=ExtResource( 3 )]
+position = Vector2( 918, 160 )
+
+[node name="WastePile" parent="MarginContainer/CenterContainer" instance=ExtResource( 4 )]
+position = Vector2( 1235, 160 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 640, 500 )
 current = true
-zoom = Vector2( 1.25, 1.25 )
+zoom = Vector2( 1.35, 1.35 )
 smoothing_enabled = true

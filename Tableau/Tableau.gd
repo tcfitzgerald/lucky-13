@@ -1,11 +1,12 @@
 extends Node2D
 class_name Tableau
 
-onready var cards: Node2D = $Cards
+onready var cards: Node = $Cards
 onready var tween: Tween = $Tween
 onready var tableau_name: String = str(self.name).to_lower()
 onready var card_data: Dictionary = {tableau_name: []}
 
+signal card_added
 
 func _ready() -> void:
 	pass
@@ -34,11 +35,12 @@ func add_card_to_tableau(selected_card, card_offset, duration = 1):
 	tween.interpolate_property(selected_card, "position", selected_card.position, 
 			Vector2(cards.get_parent().position.x, cards.get_parent().position.y + card_offset), duration, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	tween.start()
+	emit_signal("card_added")
 
 func is_top_tableau_card(card) -> bool:
 	var tableau_children_count = cards.get_child_count()
 	return (card == cards.get_child(tableau_children_count - 1))
 
-func get_top_tableau_card() -> Card:
+func get_top_tableau_card() -> Node:
 	var tableau_children_count = cards.get_child_count()
-	return cards.get_child(tableau_children_count - 1) as Card
+	return cards.get_child(tableau_children_count - 1)

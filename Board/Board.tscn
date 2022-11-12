@@ -36,6 +36,12 @@ position = Vector2( 738, 160 )
 [node name="Tableau5" parent="MarginContainer/CenterContainer" instance=ExtResource( 3 )]
 position = Vector2( 918, 160 )
 
+[node name="Tableau6" parent="MarginContainer/CenterContainer" instance=ExtResource( 3 )]
+position = Vector2( -112, 454 )
+
+[node name="Tableau7" parent="MarginContainer/CenterContainer" instance=ExtResource( 3 )]
+position = Vector2( -112, 698 )
+
 [node name="WastePile" parent="MarginContainer/CenterContainer" instance=ExtResource( 4 )]
 position = Vector2( 1235, 160 )
 

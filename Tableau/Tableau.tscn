@@ -6,11 +6,18 @@
 [node name="Tableau" type="Node2D"]
 script = ExtResource( 2 )
 
+[node name="TableauButton" type="TextureButton" parent="."]
+margin_right = 140.0
+margin_bottom = 190.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 1 )
+texture_pressed = ExtResource( 1 )
+texture_hover = ExtResource( 1 )
+texture_disabled = ExtResource( 1 )
+texture_focused = ExtResource( 1 )
+
 [node name="Cards" type="Node" parent="."]
 
-[node name="TextureRect" type="TextureRect" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
-texture = ExtResource( 1 )
-
 [node name="Tween" type="Tween" parent="."]
+
+[connection signal="pressed" from="TableauButton" to="." method="_on_TableauButton_pressed"]

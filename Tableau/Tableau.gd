@@ -2,14 +2,18 @@ extends Node2D
 class_name Tableau
 
 onready var cards: Node = $Cards
+onready var tableau_button : TextureButton = $TableauButton
 onready var tween: Tween = $Tween
 onready var tableau_name: String = str(self.name).to_lower()
 onready var card_data: Dictionary = {tableau_name: []}
 
+export(String) var tableau_type
+
 signal card_added
 
 func _ready() -> void:
-	pass
+	if tableau_type == 'overflow':
+		tableau_button.disabled = true
 
 func has_cards() -> bool:
 	return cards.get_child_count() > 0
@@ -44,3 +48,25 @@ func is_top_tableau_card(card) -> bool:
 func get_top_tableau_card() -> Node:
 	var tableau_children_count = cards.get_child_count()
 	return cards.get_child(tableau_children_count - 1)
+
+
+func _on_TableauButton_pressed() -> void:
+	
+	if tableau_type == 'overflow':
+		return
+		
+	if has_cards():
+		return
+		
+	if BoardManager.is_card_selected == false:
+		return
+		
+	if BoardManager.is_card_selected == true:
+		BoardManager.selected_card.tableau.cards.remove_child(BoardManager.selected_card)
+		add_card_to_tableau(BoardManager.selected_card, 0, 1 * .35)
+		
+		BoardManager.selected_card.selected = false
+		BoardManager.selected_card.modulate = Color.white
+		BoardManager.selected_card.animation.play_backwards("CardScale")
+		BoardManager.selected_card = null
+		BoardManager.is_card_selected = false

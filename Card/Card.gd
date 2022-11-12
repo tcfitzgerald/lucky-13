@@ -22,7 +22,6 @@ func _ready() -> void:
 
 func _on_CardButton_pressed() -> void:
 
-
 	if card_type == "tableau":
 		if !tableau.is_top_tableau_card(self):
 			return

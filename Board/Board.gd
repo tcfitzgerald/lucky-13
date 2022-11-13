@@ -102,6 +102,7 @@ func deal() -> void:
 
 		
 		BoardManager.moves.append(_moves)
+	_on_check_board_state()
 
 func update_deck() -> void:
 	if deck.get_card_count() == 0:
@@ -140,7 +141,7 @@ func get_available_moves_for_card(card) -> Array:
 		if !tableau.has_cards():
 			_available_moves.append(tableau)
 	
-	print(_available_moves)
+	#print(_available_moves)
 	
 	return _available_moves
 
@@ -159,15 +160,42 @@ func board_has_matches() -> bool:
 			_tableau_cards.append(overflow_tableau.get_top_tableau_card())
 			
 	var matches = 0
+	
+	for tableau in tableaus:
+		if !tableau.has_cards():
+			_card_matches.append([tableau])
+	
 	for card in _tableau_cards:
-		if card.int_value + _tableau_cards[0].int_value == 13:
-			matches += 1
-			_card_matches.append(card)
+		for i in _tableau_cards.size():
+			if card != _tableau_cards[i]:
+				#print("Card value: ", card.int_value, "Tableau Card: ", _tableau_cards[i].int_value)
+				if card.int_value + _tableau_cards[i].int_value == 13 or card.int_value == 13:
+
+					matches += 1
+					_card_matches.append([card, _tableau_cards[0]])
+	print(_card_matches.size())
+	return bool(_card_matches.size() > 0)
+
+func tableaus_have_cards() -> bool:
+	var _tableau_cards = []
+	
+	for tableau in tableaus:
+		if tableau.has_cards():
+			_tableau_cards.append(tableau.get_top_tableau_card())
 			
-	return bool(matches >= 2)
+	for overflow_tableau in overflow_tableaus:
+		if overflow_tableau.has_cards():
+			_tableau_cards.append(overflow_tableau.get_top_tableau_card())
+			
+	return _tableau_cards.size() > 0
 
 func _on_check_board_state() -> void:
-	pass
+	print("check board state")
+	if !tableaus_have_cards() and deck.get_card_count() == 0:
+		print(" win ")
+		
+	if deck.get_card_count() == 0 and !board_has_matches():
+		print("lose")
 
 func undo():
 	if BoardManager.moves.size() > 0:
@@ -182,7 +210,7 @@ func undo():
 			card.get_parent().remove_child(card)
 			parent.add_child(card)
 			card.set_owner(parent)
-			print(card_data)
+			#print(card_data)
 			card.card_type = card_data['card_type']
 			card.tableau = card_data['tableau']
 			#card.position = cardPosition

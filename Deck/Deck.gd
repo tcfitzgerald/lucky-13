@@ -74,8 +74,9 @@ func build_deck() -> void:
 	var _seed = randi()
 	seed(_seed)
 	print(_seed)
+	BoardManager._seed = _seed
 	cards.shuffle()
-	cards.shuffle()
+	cards.invert()
 	for card in cards:
 		var new_card = card_scene.instance()
 		new_card.suit = card["suit"]

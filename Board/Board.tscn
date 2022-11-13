@@ -57,3 +57,5 @@ position = Vector2( 640, 500 )
 current = true
 zoom = Vector2( 1.35, 1.35 )
 smoothing_enabled = true
+
+[node name="Tween" type="Tween" parent="."]

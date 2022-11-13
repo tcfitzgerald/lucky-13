@@ -1,6 +1,8 @@
 extends Node2D
 class_name Card
 
+const card_move = preload("res://Card/Move.gd")
+
 var int_value : int
 var suit : String
 var face_value : String
@@ -26,8 +28,9 @@ func _on_CardButton_pressed() -> void:
 		if !tableau.is_top_tableau_card(self):
 			return
 
-	var moves = [1]
-	if BoardManager.is_card_selected == false && len(moves) > 0:
+	var available_moves : Array = board.get_available_moves_for_card(self)
+	
+	if BoardManager.is_card_selected == false && len(available_moves) > 0:
 		
 		if card_type == "tableau":
 			modulate = Color(.88, .90, .63)
@@ -37,22 +40,26 @@ func _on_CardButton_pressed() -> void:
 			animation.play("CardScale")
 			
 			if (BoardManager.selected_card.int_value == 13):
+				print(BoardManager.selected_card)
 				animation.play_backwards("CardScale")
 				selected = false
 				modulate = Color.white
 				BoardManager.selected_card.selected = false
 				BoardManager.selected_card.modulate = Color.white
 				BoardManager.selected_card.animation.play_backwards("CardScale")
+				var move = card_move.new(BoardManager.selected_card, BoardManager.selected_card.to_json(), BoardManager.selected_card.get_parent(), BoardManager.selected_card.position, "play")
+				BoardManager.moves.append([move])
 				waste_pile.move_card_to_waste_pile(BoardManager.selected_card)
 				
 				BoardManager.selected_card = null
 				BoardManager.is_card_selected = false
 			
-			return
+				return
 		else:
 			animation.play("CardShake")
 		
 		if selected == false:
+			print(card_type)
 			animation.play("CardShake")
 
 	elif BoardManager.is_card_selected == true:
@@ -64,9 +71,7 @@ func _on_CardButton_pressed() -> void:
 			selected = false
 			modulate = Color.white
 			return
-		
 
-		
 		if (BoardManager.selected_card.int_value + int_value == 13) \
 			and BoardManager.selected_card != self:
 			animation.play_backwards("CardScale")
@@ -75,6 +80,9 @@ func _on_CardButton_pressed() -> void:
 			BoardManager.selected_card.selected = false
 			BoardManager.selected_card.modulate = Color.white
 			BoardManager.selected_card.animation.play_backwards("CardScale")
+			var move1 = card_move.new(BoardManager.selected_card, BoardManager.selected_card.to_json(), BoardManager.selected_card.get_parent(), BoardManager.selected_card.position, "play")
+			var move2 = card_move.new(self, self.to_json(), get_parent(), position, "play")
+			BoardManager.moves.append([move1, move2])
 			waste_pile.move_card_to_waste_pile(self)
 			waste_pile.move_card_to_waste_pile(BoardManager.selected_card)
 
@@ -86,3 +94,6 @@ func _on_CardButton_pressed() -> void:
 			animation.play("CardShake")
 	else:
 		animation.play("CardShake")
+
+func to_json():
+	return {"int_value": int_value, "suit": suit, "face": face_value, "card_type": card_type, "tableau": tableau}

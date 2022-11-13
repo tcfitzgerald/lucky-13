@@ -1,6 +1,8 @@
 extends Node2D
 class_name Tableau
 
+const card_move = preload("res://Card/Move.gd")
+
 onready var cards: Node = $Cards
 onready var tableau_button : TextureButton = $TableauButton
 onready var tween: Tween = $Tween
@@ -32,12 +34,14 @@ func get_cards() -> Dictionary:
 		
 	return card_data
 
-func add_card_to_tableau(selected_card, card_offset, duration = 1):
+func add_card_to_tableau(selected_card, card_offset, start_card_offset = 100, duration = 1):
 	cards.add_child(selected_card)
 	selected_card.set_owner(cards)
 	selected_card.tableau = self
-	tween.interpolate_property(selected_card, "position", selected_card.position, 
+# warning-ignore:return_value_discarded
+	tween.interpolate_property(selected_card, "position", selected_card.position + Vector2(0,start_card_offset), 
 			Vector2(cards.get_parent().position.x, cards.get_parent().position.y + card_offset), duration, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+# warning-ignore:return_value_discarded
 	tween.start()
 	emit_signal("card_added")
 
@@ -62,8 +66,10 @@ func _on_TableauButton_pressed() -> void:
 		return
 		
 	if BoardManager.is_card_selected == true:
+		var move = card_move.new(BoardManager.selected_card, BoardManager.selected_card.to_json(), BoardManager.selected_card.get_parent(), BoardManager.selected_card.position, "play")
+		BoardManager.moves.append([move])
 		BoardManager.selected_card.tableau.cards.remove_child(BoardManager.selected_card)
-		add_card_to_tableau(BoardManager.selected_card, 0, 1 * .35)
+		add_card_to_tableau(BoardManager.selected_card, 0, 0, 1 * .35)
 		
 		BoardManager.selected_card.selected = false
 		BoardManager.selected_card.modulate = Color.white

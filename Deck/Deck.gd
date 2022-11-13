@@ -6,7 +6,7 @@ onready var card_button: TextureButton = $CardTexture
 
 signal deck_clicked
 # preload
-var card_scene: PackedScene = preload("res://Card/Card.tscn")
+const card_scene: PackedScene = preload("res://Card/Card.tscn")
 
 
 var cards: Array = [
@@ -75,6 +75,7 @@ func build_deck() -> void:
 	seed(_seed)
 	print(_seed)
 	cards.shuffle()
+	cards.shuffle()
 	for card in cards:
 		var new_card = card_scene.instance()
 		new_card.suit = card["suit"]
@@ -92,9 +93,13 @@ func get_top_card() -> Node:
 func get_card_count() -> int:
 	return card_holder.get_child_count()
 
-func update_display() -> void:
-	card_button.disabled = true
-	card_button.visible = false
+func update_display(state) -> void:
+	if state == 'hide':
+		card_button.disabled = true
+		card_button.visible = false
+	elif state == 'show':
+		card_button.disabled = false
+		card_button.visible = true
 
 func _on_CardTexture_pressed() -> void:
 	emit_signal("deck_clicked")

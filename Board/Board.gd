@@ -105,9 +105,9 @@ func deal() -> void:
 
 func update_deck() -> void:
 	if deck.get_card_count() == 0:
-		deck.update_display('show')
-	else:
 		deck.update_display('hide')
+	else:
+		deck.update_display('show')
 
 
 func get_playable_cards() -> Array:

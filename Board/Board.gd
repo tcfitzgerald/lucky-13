@@ -38,6 +38,7 @@ func _ready() -> void:
 	waste_pile.connect("check_board_state", self, "_on_check_board_state")
 	for tableau in tableaus:
 		tableau.connect("card_added", self, "update_deck")
+		tableau.connect("check_board_state", self, "_on_check_board_state")
 		
 	for tableau in overflow_tableaus:
 		tableau.connect("card_added", self, "update_deck")
@@ -192,10 +193,10 @@ func tableaus_have_cards() -> bool:
 func _on_check_board_state() -> void:
 	print("check board state")
 	if !tableaus_have_cards() and deck.get_card_count() == 0:
-		print(" win ")
+		gameover("win")
 		
 	if deck.get_card_count() == 0 and !board_has_matches():
-		print("lose")
+		gameover("lose")
 
 func undo():
 	if BoardManager.moves.size() > 0:
@@ -222,3 +223,19 @@ func undo():
 
 	else:
 		return
+
+func win() -> void:
+	print("win")
+	return
+	
+func lose() -> void:
+	print("lose")
+	return
+	
+func gameover(status : String):
+	match status:
+		"win":
+			win()
+		"lose":
+			lose()
+	

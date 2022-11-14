@@ -49,7 +49,7 @@ func _on_CardButton_pressed() -> void:
 				BoardManager.selected_card.animation.play_backwards("CardScale")
 				var move = card_move.new(BoardManager.selected_card, BoardManager.selected_card.to_json(), BoardManager.selected_card.get_parent(), BoardManager.selected_card.position, "play")
 				BoardManager.moves.append([move])
-				waste_pile.move_card_to_waste_pile(BoardManager.selected_card)
+				waste_pile.move_cards_to_waste_pile([BoardManager.selected_card])
 				
 				BoardManager.selected_card = null
 				BoardManager.is_card_selected = false
@@ -83,8 +83,7 @@ func _on_CardButton_pressed() -> void:
 			var move1 = card_move.new(BoardManager.selected_card, BoardManager.selected_card.to_json(), BoardManager.selected_card.get_parent(), BoardManager.selected_card.position, "play")
 			var move2 = card_move.new(self, self.to_json(), get_parent(), position, "play")
 			BoardManager.moves.append([move1, move2])
-			waste_pile.move_card_to_waste_pile(self)
-			waste_pile.move_card_to_waste_pile(BoardManager.selected_card)
+			waste_pile.move_cards_to_waste_pile([self, BoardManager.selected_card])
 
 
 			BoardManager.selected_card = null

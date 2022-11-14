@@ -12,6 +12,7 @@ onready var card_data: Dictionary = {tableau_name: []}
 export(String) var tableau_type
 
 signal card_added
+signal check_board_state
 
 func _ready() -> void:
 	if tableau_type == 'overflow':
@@ -76,3 +77,4 @@ func _on_TableauButton_pressed() -> void:
 		BoardManager.selected_card.animation.play_backwards("CardScale")
 		BoardManager.selected_card = null
 		BoardManager.is_card_selected = false
+		emit_signal("check_board_state")

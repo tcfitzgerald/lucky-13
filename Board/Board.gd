@@ -46,6 +46,7 @@ func _ready() -> void:
 # warning-ignore:unused_argument
 func _unhandled_key_input(event) -> void:
 	if Input.is_action_just_pressed("reload"):
+# warning-ignore:return_value_discarded
 		get_tree().reload_current_scene()
 		
 	if Input.is_action_just_pressed("matches"):
@@ -142,8 +143,7 @@ func get_available_moves_for_card(card) -> Array:
 		if !tableau.has_cards():
 			_available_moves.append(tableau)
 	
-	#print(_available_moves)
-	
+
 	return _available_moves
 
 
@@ -160,6 +160,7 @@ func board_has_matches() -> bool:
 		if overflow_tableau.has_cards():
 			_tableau_cards.append(overflow_tableau.get_top_tableau_card())
 			
+# warning-ignore:unused_variable
 	var matches = 0
 	
 	for tableau in tableaus:
@@ -169,12 +170,12 @@ func board_has_matches() -> bool:
 	for card in _tableau_cards:
 		for i in _tableau_cards.size():
 			if card != _tableau_cards[i]:
-				#print("Card value: ", card.int_value, "Tableau Card: ", _tableau_cards[i].int_value)
+				
 				if card.int_value + _tableau_cards[i].int_value == 13 or card.int_value == 13:
 
 					matches += 1
 					_card_matches.append([card, _tableau_cards[0]])
-	print(_card_matches.size())
+
 	return bool(_card_matches.size() > 0)
 
 func tableaus_have_cards() -> bool:
@@ -207,14 +208,13 @@ func undo():
 			var card = move.card_node
 			var card_position = move.current_position
 			var card_data = move.card_data
+# warning-ignore:unused_variable
 			var undo_move = card_move.new(card, card.to_json(), parent, card_position, "undo")
 			card.get_parent().remove_child(card)
 			parent.add_child(card)
 			card.set_owner(parent)
-			#print(card_data)
 			card.card_type = card_data['card_type']
 			card.tableau = card_data['tableau']
-			#card.position = cardPosition
 			undo_tween.interpolate_property(card, "position", card.position, 
 				Vector2(card_position.x, card_position.y), 0.35, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 			undo_tween.start()

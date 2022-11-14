@@ -40,7 +40,6 @@ func _on_CardButton_pressed() -> void:
 			animation.play("CardScale")
 			
 			if (BoardManager.selected_card.int_value == 13):
-				print(BoardManager.selected_card)
 				animation.play_backwards("CardScale")
 				selected = false
 				modulate = Color.white
@@ -59,7 +58,6 @@ func _on_CardButton_pressed() -> void:
 			animation.play("CardShake")
 		
 		if selected == false:
-			print(card_type)
 			animation.play("CardShake")
 
 	elif BoardManager.is_card_selected == true:

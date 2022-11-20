@@ -57,24 +57,25 @@ func get_top_tableau_card() -> Node:
 
 func _on_TableauButton_pressed() -> void:
 	
-	if tableau_type == 'overflow':
-		return
-		
-	if has_cards():
-		return
-		
-	if BoardManager.is_card_selected == false:
-		return
-		
-	if BoardManager.is_card_selected == true:
-		var move = card_move.new(BoardManager.selected_card, BoardManager.selected_card.to_json(), BoardManager.selected_card.get_parent(), BoardManager.selected_card.position, "play")
-		BoardManager.moves.append([move])
-		BoardManager.selected_card.tableau.cards.remove_child(BoardManager.selected_card)
-		add_card_to_tableau(BoardManager.selected_card, 0, 0, 1 * .35)
-		
-		BoardManager.selected_card.selected = false
-		BoardManager.selected_card.modulate = Color.white
-		BoardManager.selected_card.animation.play_backwards("CardScale")
-		BoardManager.selected_card = null
-		BoardManager.is_card_selected = false
-		emit_signal("check_board_state")
+	if BoardManager.difficulty == BoardManager.difficulty_type.NORMAL:
+		if tableau_type == 'overflow':
+			return
+			
+		if has_cards():
+			return
+			
+		if BoardManager.is_card_selected == false:
+			return
+			
+		if BoardManager.is_card_selected == true:
+			var move = card_move.new(BoardManager.selected_card, BoardManager.selected_card.to_json(), BoardManager.selected_card.get_parent(), BoardManager.selected_card.position, "play")
+			BoardManager.moves.append([move])
+			BoardManager.selected_card.tableau.cards.remove_child(BoardManager.selected_card)
+			add_card_to_tableau(BoardManager.selected_card, 0, 0, 1 * .35)
+			
+			BoardManager.selected_card.selected = false
+			BoardManager.selected_card.modulate = Color.white
+			BoardManager.selected_card.animation.play_backwards("CardScale")
+			BoardManager.selected_card = null
+			BoardManager.is_card_selected = false
+			emit_signal("check_board_state")

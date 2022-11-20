@@ -20,8 +20,10 @@ func move_cards_to_waste_pile(cards, play_tween = true, play_flip = false):
 	# warning-ignore:return_value_discarded
 			tween.interpolate_property(card, "position", card.position, card_holder.get_parent().position, 1, 
 				Tween.TRANS_LINEAR, Tween.EASE_OUT_IN)
+
 	# warning-ignore:return_value_discarded
 			tween.start()
+
 		elif play_flip:
 	# warning-ignore:return_value_discarded
 			tween.interpolate_property(card, "position", parent.get_parent().position, card_holder.get_parent().position, 1, 

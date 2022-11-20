@@ -1,0 +1,91 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Utils/ScreenTransition.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Menus/Images/play_button_normal.png" type="Texture" id=2]
+[ext_resource path="res://Menus/Images/quit_button_normal.png" type="Texture" id=3]
+[ext_resource path="res://Menus/Images/quit_button_hover.png" type="Texture" id=4]
+[ext_resource path="res://Menus/MainMenu.gd" type="Script" id=5]
+[ext_resource path="res://Menus/Images/play_button_hover.png" type="Texture" id=6]
+[ext_resource path="res://Menus/Images/title_logo.png" type="Texture" id=7]
+
+[node name="Menu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 5 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.0470588, 0.211765, 0.0470588, 1 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+margin_right = 1284.0
+margin_bottom = 720.0
+
+[node name="LogoPanel" type="Control" parent="MarginContainer/HBoxContainer"]
+margin_right = 700.0
+margin_bottom = 720.0
+rect_min_size = Vector2( 700, 720 )
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/LogoPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="TitleLogo" type="Sprite" parent="MarginContainer/HBoxContainer/LogoPanel/MarginContainer"]
+position = Vector2( 381, 199 )
+rotation = -0.226893
+scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 7 )
+
+[node name="MenuPanel" type="Control" parent="MarginContainer/HBoxContainer"]
+margin_left = 704.0
+margin_right = 1284.0
+margin_bottom = 720.0
+rect_min_size = Vector2( 580, 720 )
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/MenuPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 0
+custom_constants/margin_top = 350
+custom_constants/margin_left = 145
+custom_constants/margin_bottom = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/MenuPanel/MarginContainer"]
+margin_left = 145.0
+margin_top = 350.0
+margin_right = 580.0
+margin_bottom = 720.0
+custom_constants/separation = 25
+
+[node name="PlayButton" type="TextureButton" parent="MarginContainer/HBoxContainer/MenuPanel/MarginContainer/VBoxContainer"]
+margin_right = 435.0
+margin_bottom = 100.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 2 )
+texture_hover = ExtResource( 6 )
+
+[node name="TextureButton2" type="TextureButton" parent="MarginContainer/HBoxContainer/MenuPanel/MarginContainer/VBoxContainer"]
+margin_top = 125.0
+margin_right = 435.0
+margin_bottom = 225.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 3 )
+texture_hover = ExtResource( 4 )
+
+[node name="TextureButton3" type="TextureButton" parent="MarginContainer/HBoxContainer/MenuPanel/MarginContainer/VBoxContainer"]
+margin_top = 250.0
+margin_right = 435.0
+margin_bottom = 250.0
+
+[node name="SceneTransition" parent="." instance=ExtResource( 1 )]
+visible = false
+mouse_filter = 2
+next_scene_path = "res://Board/Board.tscn"

@@ -40,15 +40,13 @@ func _on_CardButton_pressed() -> void:
 
 			animation.play("CardScale")
 			
-			if (BoardManager.selected_card.int_value == 13):
+			if (int_value == 13):
 				animation.play_backwards("CardScale")
 				selected = false
 				modulate = Color.white
-				BoardManager.selected_card.selected = false
-				BoardManager.selected_card.modulate = Color.white
-				BoardManager.selected_card.animation.play_backwards("CardScale")
-				var move = card_move.new(BoardManager.selected_card, BoardManager.selected_card.to_json(), BoardManager.selected_card.get_parent(), BoardManager.selected_card.position, "play")
+				var move = card_move.new(self, self.to_json(), get_parent(), position, "play")
 				BoardManager.moves.append([move])
+				card_type = "wastepile"
 				waste_pile.move_cards_to_waste_pile([BoardManager.selected_card])
 				
 				BoardManager.selected_card = null
@@ -84,6 +82,8 @@ func _on_CardButton_pressed() -> void:
 			var move1 = card_move.new(BoardManager.selected_card, BoardManager.selected_card.to_json(), BoardManager.selected_card.get_parent(), BoardManager.selected_card.position, "play")
 			var move2 = card_move.new(self, self.to_json(), get_parent(), position, "play")
 			BoardManager.moves.append([move1, move2])
+			BoardManager.selected_card.card_type = "wastepile"
+			card_type = "wastepile"
 			waste_pile.move_cards_to_waste_pile([self, BoardManager.selected_card])
 
 

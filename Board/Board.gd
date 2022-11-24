@@ -21,6 +21,7 @@ onready var overflow_tableaus = [tableau6, tableau7]
 onready var waste_pile = $MarginContainer/CenterContainer/WastePile
 
 onready var undo_tween = $Tween
+onready var ui = $UI
 
 var card_offset : int = 50
 var start_card_offset : int = 150
@@ -32,6 +33,10 @@ var available_moves : Array = []
 var playable_cards : Array = []
 
 func _ready() -> void:
+	
+	ui.connect("hint_button_pressed", self, "hint")
+	ui.connect("undo_button_pressed", self, "undo")
+	
 	deck.build_deck()
 	deal()
 	deck.connect("deck_clicked", self, "deal")
@@ -61,6 +66,10 @@ func deal() -> void:
 	
 	var duration = 1
 	var _moves = []
+	
+	if BoardManager.is_card_selected:
+		deck.animation.play("Shake")
+		return
 
 	if deck.get_card_count() > 7:
 	

@@ -3,6 +3,7 @@ class_name Deck
 
 onready var card_holder: Node2D = $Cards
 onready var card_button: TextureButton = $CardTexture
+onready var animation : AnimationPlayer = $AnimationPlayer
 
 signal deck_clicked
 # preload

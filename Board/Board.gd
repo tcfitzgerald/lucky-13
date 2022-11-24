@@ -242,7 +242,6 @@ func tableaus_have_cards() -> bool:
 	return _tableau_cards.size() > 0
 
 func _on_check_board_state() -> void:
-	print("check board state")
 	if !tableaus_have_cards() and deck.get_card_count() == 0:
 		gameover("win")
 		

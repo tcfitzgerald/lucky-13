@@ -1,0 +1,84 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Themes/ui_theme.tres" type="Theme" id=1]
+[ext_resource path="res://Menus/UI.gd" type="Script" id=2]
+
+[node name="UI" type="CanvasLayer"]
+offset = Vector2( 0, -10 )
+transform = Transform2D( 1, 0, 0, 1, 0, -10 )
+script = ExtResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -640.0
+margin_top = -70.0
+margin_right = 640.0
+margin_bottom = 10.0
+grow_horizontal = 2
+rect_min_size = Vector2( 40, 80 )
+mouse_filter = 1
+size_flags_horizontal = 2
+color = Color( 0.0627451, 0.0196078, 0.0196078, 0.443137 )
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/MarginContainer"]
+margin_right = 1290.0
+margin_bottom = 95.0
+custom_constants/separation = 50
+alignment = 2
+
+[node name="LeftSpacer" type="Control" parent="ColorRect/MarginContainer/HBoxContainer"]
+margin_right = 830.0
+margin_bottom = 95.0
+rect_min_size = Vector2( 830, 95 )
+size_flags_horizontal = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="ColorRect/MarginContainer/HBoxContainer"]
+margin_left = 880.0
+margin_right = 1040.0
+margin_bottom = 95.0
+mouse_filter = 1
+size_flags_horizontal = 8
+
+[node name="UndoButton" type="Button" parent="ColorRect/MarginContainer/HBoxContainer/CenterContainer"]
+margin_top = 22.0
+margin_right = 160.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 160, 50 )
+mouse_default_cursor_shape = 2
+theme = ExtResource( 1 )
+text = "UNDO"
+
+[node name="CenterContainer2" type="CenterContainer" parent="ColorRect/MarginContainer/HBoxContainer"]
+margin_left = 1090.0
+margin_top = 22.0
+margin_right = 1210.0
+margin_bottom = 72.0
+mouse_filter = 1
+size_flags_horizontal = 8
+size_flags_vertical = 4
+
+[node name="HintButton" type="Button" parent="ColorRect/MarginContainer/HBoxContainer/CenterContainer2"]
+margin_right = 120.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 120, 50 )
+mouse_default_cursor_shape = 2
+theme = ExtResource( 1 )
+text = "HINT"
+
+[node name="RightSpacer" type="Control" parent="ColorRect/MarginContainer/HBoxContainer"]
+margin_left = 1260.0
+margin_right = 1290.0
+margin_bottom = 95.0
+rect_min_size = Vector2( 30, 95 )
+size_flags_horizontal = 0
+
+[connection signal="pressed" from="ColorRect/MarginContainer/HBoxContainer/CenterContainer/UndoButton" to="." method="_on_UndoButton_pressed"]
+[connection signal="pressed" from="ColorRect/MarginContainer/HBoxContainer/CenterContainer2/HintButton" to="." method="_on_HintButton_pressed"]

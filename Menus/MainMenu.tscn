@@ -72,7 +72,7 @@ mouse_default_cursor_shape = 2
 texture_normal = ExtResource( 2 )
 texture_hover = ExtResource( 6 )
 
-[node name="TextureButton2" type="TextureButton" parent="MarginContainer/HBoxContainer/MenuPanel/MarginContainer/VBoxContainer"]
+[node name="QuitButton" type="TextureButton" parent="MarginContainer/HBoxContainer/MenuPanel/MarginContainer/VBoxContainer"]
 margin_top = 125.0
 margin_right = 435.0
 margin_bottom = 225.0
@@ -86,6 +86,8 @@ margin_right = 435.0
 margin_bottom = 250.0
 
 [node name="SceneTransition" parent="." instance=ExtResource( 1 )]
-visible = false
 mouse_filter = 2
 next_scene_path = "res://Board/Board.tscn"
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/MenuPanel/MarginContainer/VBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/MenuPanel/MarginContainer/VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]

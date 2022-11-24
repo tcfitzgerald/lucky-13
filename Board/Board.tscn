@@ -66,3 +66,13 @@ __meta__ = {
 [node name="UI" parent="." instance=ExtResource( 5 )]
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="HintLine" type="Line2D" parent="."]
+z_index = 2
+end_cap_mode = 2
+
+[node name="HintTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="timeout" from="HintTimer" to="." method="_on_HintTimer_timeout"]

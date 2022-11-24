@@ -14,6 +14,8 @@ export(String) var tableau_type
 signal card_added
 signal check_board_state
 
+var priority: int = 0
+
 func _ready() -> void:
 	if tableau_type == 'overflow':
 		tableau_button.disabled = true
@@ -39,6 +41,7 @@ func add_card_to_tableau(selected_card, card_offset, start_card_offset = 100, du
 	cards.add_child(selected_card)
 	selected_card.set_owner(cards)
 	selected_card.tableau = self
+	selected_card.priority = get_card_count()
 # warning-ignore:return_value_discarded
 	tween.interpolate_property(selected_card, "position", selected_card.position + Vector2(0,start_card_offset), 
 			Vector2(cards.get_parent().position.x, cards.get_parent().position.y + card_offset), duration, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)

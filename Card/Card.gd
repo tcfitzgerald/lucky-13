@@ -9,6 +9,7 @@ var face_value : String
 var card_front_texture : Texture
 var card_back_texture : Texture
 var card_type : String
+var priority: int
 
 var tableau : Tableau = null
 var selected : bool = false

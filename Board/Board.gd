@@ -23,6 +23,9 @@ onready var waste_pile = $MarginContainer/CenterContainer/WastePile
 onready var undo_tween = $Tween
 onready var ui = $UI
 
+onready var hint_line = $HintLine
+onready var hint_timer = $HintTimer
+
 var card_offset : int = 50
 var start_card_offset : int = 150
 var tableau_count : int = 5
@@ -31,6 +34,12 @@ var cards_per_tableau : int = 1
 
 var available_moves : Array = []
 var playable_cards : Array = []
+
+class CardSort:
+	static func sort_descending(a, b):
+		if a.priority > b.priority:
+			return true
+		return false
 
 func _ready() -> void:
 	
@@ -169,9 +178,7 @@ func board_has_matches() -> bool:
 		if overflow_tableau.has_cards():
 			_tableau_cards.append(overflow_tableau.get_top_tableau_card())
 			
-# warning-ignore:unused_variable
-	var matches = 0
-	
+
 	for tableau in tableaus:
 		if !tableau.has_cards():
 			_card_matches.append([tableau])
@@ -180,12 +187,46 @@ func board_has_matches() -> bool:
 		for i in _tableau_cards.size():
 			if card != _tableau_cards[i]:
 				
-				if card.int_value + _tableau_cards[i].int_value == 13 or card.int_value == 13:
-
-					matches += 1
-					_card_matches.append([card, _tableau_cards[0]])
+				if card.int_value + _tableau_cards[i].int_value == 13:
+					_card_matches.append([card, _tableau_cards[i]])
+					
+				if card.int_value == 13:
+					_card_matches.append([card])
 
 	return bool(_card_matches.size() > 0)
+
+func get_board_matches() -> Array:
+	 
+	var _tableau_cards : Array
+	var _card_matches : Array
+	
+	for tableau in tableaus:
+		if tableau.has_cards():
+			_tableau_cards.append(tableau.get_top_tableau_card())
+	
+	for overflow_tableau in overflow_tableaus:
+		if overflow_tableau.has_cards():
+			_tableau_cards.append(overflow_tableau.get_top_tableau_card())
+	
+	
+	for card in _tableau_cards:
+		for i in _tableau_cards.size():
+			if card != _tableau_cards[i]:
+				
+				if card.int_value + _tableau_cards[i].int_value == 13:
+					_card_matches.append([card, _tableau_cards[i]])
+					
+				if card.int_value == 13:
+					_card_matches.append([card])
+					break
+					
+	for tableau in tableaus:
+		if !tableau.has_cards():
+			_tableau_cards.sort_custom(CardSort, "sort_descending")
+			var random_tableau_card = _tableau_cards.pop_front()
+			_card_matches.append([random_tableau_card, tableau])
+
+	return _card_matches
 
 func tableaus_have_cards() -> bool:
 	var _tableau_cards = []
@@ -224,6 +265,7 @@ func undo():
 			card.set_owner(parent)
 			card.card_type = card_data['card_type']
 			card.tableau = card_data['tableau']
+			card.priority = card_data['priority']
 			undo_tween.interpolate_property(card, "position", card.position, 
 				Vector2(card_position.x, card_position.y), 0.35, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 			undo_tween.start()
@@ -232,6 +274,45 @@ func undo():
 
 	else:
 		return
+
+
+func hint() -> void:
+	var cards = get_board_matches()
+
+	if cards:
+
+		var card_set = cards.pop_front()
+		print(card_set)
+		if card_set.size() > 1:
+			if card_set[1].priority != 0 and card_set[0].priority != 1:
+				hint_line.add_point(Vector2(card_set[0].position.x + 70, card_set[0].position.y + 70))
+				hint_line.add_point(Vector2(card_set[1].position.x + 70, card_set[1].position.y + 70))
+				hint_timer.start()
+				
+			if card_set[1].priority == 0 and card_set[0].priority > 1:
+				hint_line.add_point(Vector2(card_set[0].position.x + 70, card_set[0].position.y + 70))
+				hint_line.add_point(Vector2(card_set[1].position.x + 70, card_set[1].position.y + 70))
+				hint_timer.start()
+				
+			if card_set[1].priority == 1 and card_set[0].priority == 1:
+				hint_line.add_point(Vector2(card_set[0].position.x + 70, card_set[0].position.y + 70))
+				hint_line.add_point(Vector2(card_set[1].position.x + 70, card_set[1].position.y + 70))
+				hint_timer.start()
+				
+			if (card_set[1].priority == 1 and card_set[0].priority > 1) or (card_set[1].priority > 1 and card_set[0].priority == 1):
+				hint_line.add_point(Vector2(card_set[0].position.x + 70, card_set[0].position.y + 70))
+				hint_line.add_point(Vector2(card_set[1].position.x + 70, card_set[1].position.y + 70))
+				hint_timer.start()
+		
+		if card_set.size() == 1:
+			hint_line.add_point(Vector2(card_set[0].position.x + 70, card_set[0].position.y + 70))
+			hint_line.add_point(Vector2(waste_pile.position.x + 70, waste_pile.position.y + 70))
+			hint_timer.start()
+
+	
+#	for card in cards:
+#		card.front().animation.play("CardShake")
+#		card.back().animation.play("CardShake")
 
 func win() -> void:
 	print("win")
@@ -248,3 +329,7 @@ func gameover(status : String):
 		"lose":
 			lose()
 	
+
+
+func _on_HintTimer_timeout() -> void:
+	hint_line.clear_points()

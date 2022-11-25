@@ -28,27 +28,27 @@ position = Vector2( 501, 134 )
 tableau_type = "base"
 
 [node name="Tableau2" parent="MarginContainer/CenterContainer" instance=ExtResource( 3 )]
-position = Vector2( 681, 134 )
+position = Vector2( 691, 134 )
 tableau_type = "base"
 
 [node name="Tableau3" parent="MarginContainer/CenterContainer" instance=ExtResource( 3 )]
-position = Vector2( 861, 134 )
+position = Vector2( 881, 134 )
 tableau_type = "base"
 
 [node name="Tableau4" parent="MarginContainer/CenterContainer" instance=ExtResource( 3 )]
-position = Vector2( 1041, 134 )
+position = Vector2( 1071, 134 )
 tableau_type = "base"
 
 [node name="Tableau5" parent="MarginContainer/CenterContainer" instance=ExtResource( 3 )]
-position = Vector2( 1221, 134 )
+position = Vector2( 1261, 134 )
 tableau_type = "base"
 
 [node name="Tableau6" parent="MarginContainer/CenterContainer" instance=ExtResource( 3 )]
-position = Vector2( 182, 428 )
+position = Vector2( 182, 435 )
 tableau_type = "overflow"
 
 [node name="Tableau7" parent="MarginContainer/CenterContainer" instance=ExtResource( 3 )]
-position = Vector2( 182, 672 )
+position = Vector2( 182, 700 )
 tableau_type = "overflow"
 
 [node name="WastePile" parent="MarginContainer/CenterContainer" instance=ExtResource( 4 )]

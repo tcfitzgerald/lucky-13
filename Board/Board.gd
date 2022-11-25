@@ -27,7 +27,7 @@ onready var hint_line = $HintLine
 onready var hint_timer = $HintTimer
 
 var card_offset : int = 50
-var start_card_offset : int = 150
+export (Vector2) var start_card_offset = Vector2(150, 125)
 var tableau_count : int = 5
 var overflow_tableau_count : int = 2
 var cards_per_tableau : int = 1
@@ -91,7 +91,7 @@ func deal() -> void:
 				selected_card.card_type = "tableau"
 				deck_cards.remove_child(selected_card)
 				var k = tableaus[j].get_card_count()
-				duration += .5
+				duration += .75
 				tableaus[j].add_card_to_tableau(selected_card, k * card_offset, start_card_offset, duration * .35)
 
 		BoardManager.moves.append(_moves)
@@ -105,7 +105,7 @@ func deal() -> void:
 				selected_card.card_type = "tableau"
 				deck_cards.remove_child(selected_card)
 				var k = tableaus[j].get_card_count()
-				duration += .5
+				duration += .75
 				tableaus[j].add_card_to_tableau(selected_card, k * card_offset, start_card_offset, duration * .35)
 
 
@@ -117,7 +117,7 @@ func deal() -> void:
 				_moves.append(move)
 				selected_card.card_type = "tableau"
 				deck_cards.remove_child(selected_card)
-				duration += .5
+				duration += .25
 				overflow_tableaus[j].add_card_to_tableau(selected_card, i * card_offset, start_card_offset, duration * .35)
 
 		
@@ -308,10 +308,6 @@ func hint() -> void:
 			hint_line.add_point(Vector2(waste_pile.position.x + 70, waste_pile.position.y + 70))
 			hint_timer.start()
 
-	
-#	for card in cards:
-#		card.front().animation.play("CardShake")
-#		card.back().animation.play("CardShake")
 
 func win() -> void:
 	print("win")

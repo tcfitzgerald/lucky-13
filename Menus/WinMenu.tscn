@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Themes/ui_theme.tres" type="Theme" id=1]
+
+[node name="WinMenu" type="Popup"]
+visible = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.0666667, 0.0666667, 0.0666667, 1 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 1280, 720 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 704.0
+margin_top = 407.0
+margin_right = 1216.0
+margin_bottom = 673.0
+custom_constants/separation = 20
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+margin_right = 512.0
+margin_bottom = 106.0
+size_flags_vertical = 1
+theme = ExtResource( 1 )
+text = "YOU WIN!"
+
+[node name="Control" type="Control" parent="CenterContainer/VBoxContainer"]
+margin_top = 126.0
+margin_right = 512.0
+margin_bottom = 226.0
+rect_min_size = Vector2( 0, 100 )
+
+[node name="NewGameButton" type="TextureButton" parent="CenterContainer/VBoxContainer"]
+margin_top = 246.0
+margin_right = 512.0
+margin_bottom = 246.0
+
+[node name="MainMenuButton" type="TextureButton" parent="CenterContainer/VBoxContainer"]
+margin_top = 266.0
+margin_right = 512.0
+margin_bottom = 266.0

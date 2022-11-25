@@ -97,4 +97,4 @@ func _on_CardButton_pressed() -> void:
 		animation.play("CardShake")
 
 func to_json():
-	return {"int_value": int_value, "suit": suit, "face": face_value, "card_type": card_type, "tableau": tableau}
+	return {"int_value": int_value, "suit": suit, "face": face_value, "card_type": card_type, "priority": priority, "tableau": tableau}

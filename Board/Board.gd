@@ -26,6 +26,11 @@ onready var ui = $UI
 onready var hint_line = $HintLine
 onready var hint_timer = $HintTimer
 
+onready var win_timer = $WinTimer
+onready var win_menu = $WinMenu
+onready var gameover_timer = $GameOverTimer
+onready var gameover_menu = $GameoverMenu
+
 var card_offset : int = 50
 export (Vector2) var start_card_offset = Vector2(150, 125)
 var tableau_count : int = 5
@@ -45,6 +50,8 @@ func _ready() -> void:
 	
 	ui.connect("hint_button_pressed", self, "hint")
 	ui.connect("undo_button_pressed", self, "undo")
+	
+	gameover_menu.connect("undo_last_move_button_clicked", self, "undo_last_move")
 	
 	deck.build_deck()
 	deal()
@@ -274,14 +281,17 @@ func undo():
 	else:
 		return
 
-
+func undo_last_move() -> void:
+	ui.layer = 1
+	undo()
+	
+	
 func hint() -> void:
 	var cards = get_board_matches()
 
 	if cards:
 
 		var card_set = cards.pop_front()
-		print(card_set)
 		if card_set.size() > 1:
 			if card_set[1].priority != 0 and card_set[0].priority != 1:
 				hint_line.add_point(Vector2(card_set[0].position.x + 70, card_set[0].position.y + 70))
@@ -310,11 +320,13 @@ func hint() -> void:
 
 
 func win() -> void:
-	print("win")
+	ui.layer = -1
+	win_timer.start()
 	return
 	
 func lose() -> void:
-	print("lose")
+	ui.layer = -1
+	gameover_timer.start()
 	return
 	
 func gameover(status : String):
@@ -328,3 +340,11 @@ func gameover(status : String):
 
 func _on_HintTimer_timeout() -> void:
 	hint_line.clear_points()
+
+
+func _on_GameOverTimer_timeout() -> void:
+	gameover_menu.popup()
+
+
+func _on_WinTimer_timeout() -> void:
+	win_menu.popup()

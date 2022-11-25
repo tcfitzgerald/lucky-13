@@ -85,6 +85,7 @@ margin_right = 435.0
 margin_bottom = 250.0
 
 [node name="SceneTransition" parent="." instance=ExtResource( 1 )]
+visible = false
 mouse_filter = 2
 next_scene_path = "res://Board/Board.tscn"
 

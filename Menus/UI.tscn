@@ -29,38 +29,32 @@ anchor_bottom = 1.0
 mouse_filter = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/MarginContainer"]
-margin_right = 1290.0
-margin_bottom = 95.0
+margin_right = 1280.0
+margin_bottom = 80.0
 custom_constants/separation = 50
 alignment = 2
 
-[node name="LeftSpacer" type="Control" parent="ColorRect/MarginContainer/HBoxContainer"]
-margin_right = 830.0
-margin_bottom = 95.0
-rect_min_size = Vector2( 830, 95 )
-size_flags_horizontal = 3
-
 [node name="CenterContainer" type="CenterContainer" parent="ColorRect/MarginContainer/HBoxContainer"]
-margin_left = 880.0
-margin_right = 1040.0
-margin_bottom = 95.0
+margin_left = 900.0
+margin_right = 1060.0
+margin_bottom = 80.0
 mouse_filter = 1
 size_flags_horizontal = 8
 
 [node name="UndoButton" type="Button" parent="ColorRect/MarginContainer/HBoxContainer/CenterContainer"]
-margin_top = 22.0
+margin_top = 15.0
 margin_right = 160.0
-margin_bottom = 72.0
+margin_bottom = 65.0
 rect_min_size = Vector2( 160, 50 )
 mouse_default_cursor_shape = 2
 theme = ExtResource( 1 )
 text = "UNDO"
 
 [node name="CenterContainer2" type="CenterContainer" parent="ColorRect/MarginContainer/HBoxContainer"]
-margin_left = 1090.0
-margin_top = 22.0
-margin_right = 1210.0
-margin_bottom = 72.0
+margin_left = 1110.0
+margin_top = 15.0
+margin_right = 1230.0
+margin_bottom = 65.0
 mouse_filter = 1
 size_flags_horizontal = 8
 size_flags_vertical = 4
@@ -74,11 +68,9 @@ theme = ExtResource( 1 )
 text = "HINT"
 
 [node name="RightSpacer" type="Control" parent="ColorRect/MarginContainer/HBoxContainer"]
-margin_left = 1260.0
-margin_right = 1290.0
-margin_bottom = 95.0
-rect_min_size = Vector2( 30, 95 )
-size_flags_horizontal = 0
+margin_left = 1280.0
+margin_right = 1280.0
+margin_bottom = 80.0
 
 [connection signal="pressed" from="ColorRect/MarginContainer/HBoxContainer/CenterContainer/UndoButton" to="." method="_on_UndoButton_pressed"]
 [connection signal="pressed" from="ColorRect/MarginContainer/HBoxContainer/CenterContainer2/HintButton" to="." method="_on_HintButton_pressed"]

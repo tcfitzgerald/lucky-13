@@ -18,9 +18,10 @@ onready var tableau7 = $MarginContainer/CenterContainer/Tableau7
 onready var tableaus = [tableau1, tableau2, tableau3, tableau4, tableau5]
 onready var overflow_tableaus = [tableau6, tableau7]
 
-onready var waste_pile = $MarginContainer/CenterContainer/WastePile
+onready var waste_pile: Node2D = $MarginContainer/CenterContainer/WastePile
 
-onready var undo_tween = $Tween
+onready var undo_tween: Tween = $Tween
+onready var z_index_tween: Tween = $z_index_tween
 onready var ui = $UI
 
 onready var hint_line = $HintLine
@@ -275,7 +276,9 @@ func undo():
 			card.priority = card_data['priority']
 			undo_tween.interpolate_property(card, "position", card.position, 
 				Vector2(card_position.x, card_position.y), 0.35, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+			z_index_tween.interpolate_property(card, "z_index", 90, 0, 0.35, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 			undo_tween.start()
+			z_index_tween.start()
 		BoardManager.moves.pop_back()
 		update_deck()
 

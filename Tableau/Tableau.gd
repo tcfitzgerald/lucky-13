@@ -6,6 +6,7 @@ const card_move = preload("res://Card/Move.gd")
 onready var cards: Node = $Cards
 onready var tableau_button : TextureButton = $TableauButton
 onready var tween: Tween = $Tween
+onready var z_index_tween: Tween = $z_index_tween
 onready var tableau_name: String = str(self.name).to_lower()
 onready var card_data: Dictionary = {tableau_name: []}
 
@@ -46,7 +47,9 @@ func add_card_to_tableau(selected_card, card_offset, start_card_offset, duration
 	tween.interpolate_property(selected_card, "position", selected_card.position + start_card_offset, 
 			Vector2(cards.get_parent().position.x, cards.get_parent().position.y + card_offset), duration, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 # warning-ignore:return_value_discarded
+	z_index_tween.interpolate_property(selected_card, "z_index", 90, 0, duration, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	tween.start()
+	z_index_tween.start()
 	emit_signal("card_added")
 
 func is_top_tableau_card(card) -> bool:

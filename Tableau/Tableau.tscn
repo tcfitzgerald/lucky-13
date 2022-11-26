@@ -20,4 +20,6 @@ texture_focused = ExtResource( 1 )
 
 [node name="Tween" type="Tween" parent="."]
 
+[node name="z_index_tween" type="Tween" parent="."]
+
 [connection signal="pressed" from="TableauButton" to="." method="_on_TableauButton_pressed"]

@@ -59,11 +59,12 @@ tableau_type = "overflow"
 position = Vector2( 1538, 134 )
 
 [node name="GameoverMenu" parent="." instance=ExtResource( 6 )]
-visible = false
 
 [node name="WinMenu" parent="." instance=ExtResource( 7 )]
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="z_index_tween" type="Tween" parent="."]
 
 [node name="HintLine" type="Line2D" parent="."]
 z_index = 2

@@ -55,6 +55,7 @@ rect_min_size = Vector2( 0, 100 )
 margin_top = 372.0
 margin_right = 1476.0
 margin_bottom = 478.0
+mouse_default_cursor_shape = 2
 text = "UNDO LAST MOVE"
 
 [node name="NewGameButton" type="Button" parent="CenterContainer/VBoxContainer"]

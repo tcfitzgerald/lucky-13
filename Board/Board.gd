@@ -54,6 +54,7 @@ func _ready() -> void:
 	gameover_menu.connect("undo_last_move_button_clicked", self, "undo_last_move")
 	
 	deck.build_deck()
+	yield(get_tree(), "idle_frame")
 	deal()
 	deck.connect("deck_clicked", self, "deal")
 	waste_pile.connect("check_board_state", self, "_on_check_board_state")

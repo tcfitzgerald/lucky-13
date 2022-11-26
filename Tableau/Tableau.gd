@@ -37,7 +37,7 @@ func get_cards() -> Dictionary:
 		
 	return card_data
 
-func add_card_to_tableau(selected_card, card_offset, start_card_offset, duration = 1):
+func add_card_to_tableau(selected_card, card_offset, start_card_offset, duration):
 	cards.add_child(selected_card)
 	selected_card.set_owner(cards)
 	selected_card.tableau = self
